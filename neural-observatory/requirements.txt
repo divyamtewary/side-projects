@@ -1,0 +1,14 @@
+# Core
+streamlit>=1.36
+torch>=2.2
+transformers>=4.50
+safetensors>=0.4
+huggingface_hub>=0.24
+
+# Visualisation
+plotly>=5.20
+numpy>=1.26
+pandas>=2.0
+
+# Telemetry
+psutil>=5.9

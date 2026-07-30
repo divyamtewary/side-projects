@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-label="Neural Observatory — watch a transformer think">
+  <title>Neural Observatory</title>
+
+  <defs>
+    <linearGradient id="nbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070709"/>
+      <stop offset="50%" stop-color="#0E0B18"/>
+      <stop offset="100%" stop-color="#0A1420"/>
+    </linearGradient>
+
+    <linearGradient id="nacc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="55%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+
+    <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.05"/>
+      <stop offset="55%" stop-color="#a855f7" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <radialGradient id="nglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="cglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="ngrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#a855f7" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+
+    <clipPath id="ncard"><rect width="1200" height="340" rx="18"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#ncard)">
+    <rect width="1200" height="340" fill="url(#nbg)"/>
+    <rect width="1200" height="340" fill="url(#ngrid)"/>
+    <ellipse cx="820" cy="300" rx="420" ry="220" fill="url(#nglow)"/>
+    <ellipse cx="1080" cy="60" rx="300" ry="180" fill="url(#cglow)"/>
+    <rect x="0" y="0" width="6" height="340" fill="url(#nacc)"/>
+
+    <!-- ── wordmark ───────────────────────────────────────── -->
+    <g transform="translate(56,0)">
+      <circle cx="12" cy="62" r="11" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+      <circle cx="12" cy="62" r="4" fill="#22d3ee"/>
+      <text x="36" y="72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font-size="42" font-weight="700" fill="#f5f7fb" letter-spacing="-0.8">
+        neural<tspan fill="#a855f7"> observatory</tspan>
+      </text>
+    </g>
+
+    <text x="58" y="106" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+          font-size="17" fill="#a1a1aa">
+      Watch a transformer think — layer by layer, head by head, on a CPU
+    </text>
+
+    <!-- ── feature chips ──────────────────────────────────── -->
+    <g transform="translate(58,132)" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12.5">
+      <rect x="0" y="0" width="112" height="30" rx="15" fill="#17181d" stroke="#a855f7" stroke-opacity="0.35"/>
+      <text x="56" y="20" text-anchor="middle" fill="#d8b4fe">logit lens</text>
+
+      <rect x="122" y="0" width="132" height="30" rx="15" fill="#17181d" stroke="#22d3ee" stroke-opacity="0.35"/>
+      <text x="188" y="20" text-anchor="middle" fill="#a5f3fc">head entropy</text>
+
+      <rect x="266" y="0" width="132" height="30" rx="15" fill="#17181d" stroke="#22c55e" stroke-opacity="0.35"/>
+      <text x="332" y="20" text-anchor="middle" fill="#a7f3c0">MLP sparsity</text>
+
+      <rect x="410" y="0" width="118" height="30" rx="15" fill="#17181d" stroke="#f59e0b" stroke-opacity="0.35"/>
+      <text x="469" y="20" text-anchor="middle" fill="#fcd9a0">3D stack</text>
+    </g>
+
+    <!-- ── the claim ──────────────────────────────────────── -->
+    <g transform="translate(58,214)">
+      <rect x="0" y="0" width="3" height="76" fill="url(#nacc)"/>
+      <text x="18" y="22" font-family="system-ui, Segoe UI, sans-serif" font-size="11"
+            fill="#71717a" letter-spacing="1.6">THE QUESTION IT ANSWERS</text>
+      <text x="18" y="50" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="19"
+            fill="#f5f7fb">Which layer did it decide at?</text>
+      <text x="18" y="72" font-family="system-ui, Segoe UI, sans-serif" font-size="13" fill="#8b8b93">
+        Project the residual stream through the unembedding at every depth and read the answer
+      </text>
+    </g>
+
+    <!-- ── layer stack + logit lens beam ──────────────────── -->
+    <g transform="translate(840,42)">
+      <line x1="130" y1="252" x2="130" y2="16" stroke="url(#beam)" stroke-width="3" stroke-linecap="round"/>
+
+      <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="10">
+        <!-- early layers: uncertain -->
+        <rect x="0" y="238" width="260" height="18" rx="4" fill="#17181d" stroke="#a855f7" stroke-opacity="0.18"/>
+        <text x="10" y="251" fill="#52525b">L00</text>
+        <text x="70" y="251" fill="#52525b">the · a · of · in</text>
+
+        <rect x="0" y="212" width="260" height="18" rx="4" fill="#17181d" stroke="#a855f7" stroke-opacity="0.22"/>
+        <text x="10" y="225" fill="#52525b">L04</text>
+        <text x="70" y="225" fill="#5c5c66">of · to · and · is</text>
+
+        <rect x="0" y="186" width="260" height="18" rx="4" fill="#17181d" stroke="#a855f7" stroke-opacity="0.28"/>
+        <text x="10" y="199" fill="#71717a">L08</text>
+        <text x="70" y="199" fill="#71717a">Par · Lon · Ber</text>
+
+        <!-- the flip -->
+        <rect x="0" y="160" width="260" height="18" rx="4" fill="#1c1030" stroke="#a855f7" stroke-opacity="0.55"/>
+        <text x="10" y="173" fill="#c084fc">L11</text>
+        <text x="70" y="173" fill="#d8b4fe">Paris · Lyon · Nice</text>
+
+        <rect x="0" y="134" width="260" height="18" rx="4" fill="#0e2029" stroke="#22d3ee" stroke-opacity="0.6"/>
+        <text x="10" y="147" fill="#67e8f9">L14</text>
+        <text x="70" y="147" fill="#a5f3fc">Paris · Paris · Lyon</text>
+
+        <rect x="0" y="108" width="260" height="18" rx="4" fill="#0e2029" stroke="#22d3ee" stroke-opacity="0.75"/>
+        <text x="10" y="121" fill="#67e8f9">L17</text>
+        <text x="70" y="121" fill="#a5f3fc">Paris</text>
+
+        <rect x="0" y="82" width="260" height="18" rx="4" fill="#0e2029" stroke="#22d3ee" stroke-opacity="0.9"/>
+        <text x="10" y="95" fill="#67e8f9">out</text>
+        <text x="70" y="95" fill="#ecfeff" font-weight="700">Paris</text>
+      </g>
+
+      <text x="0" y="62" font-family="system-ui, Segoe UI, sans-serif" font-size="11"
+            fill="#71717a" letter-spacing="1.6">LOGIT LENS · ILLUSTRATIVE</text>
+      <circle cx="130" cy="160" r="5" fill="#a855f7"/>
+      <text x="146" y="164" font-family="system-ui, Segoe UI, sans-serif" font-size="11" fill="#a855f7">it settles here</text>
+    </g>
+  </g>
+</svg>

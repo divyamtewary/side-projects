@@ -1,0 +1,32 @@
+# --- Local ---------------------------------------------------
+.env
+.venv/
+venv/
+
+# Local planning notes. Contains employer-specific context and must
+# never reach the remote.
+PROJECT_BRIEF.md
+
+# --- Model weights -------------------------------------------
+# Models are pulled from the Hub at runtime and cached in
+# ~/.cache/huggingface. Nothing model-shaped belongs in git.
+*.safetensors
+*.gguf
+*.bin
+*.pt
+models/
+
+# --- Python --------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- Streamlit -----------------------------------------------
+.streamlit/secrets.toml
+
+# --- OS / editor ---------------------------------------------
+Thumbs.db
+.DS_Store
+desktop.ini
+.idea/
