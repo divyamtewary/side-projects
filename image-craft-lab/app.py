@@ -32,7 +32,7 @@ from src.presets import (
 # ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Image Craft Lab",
-    page_icon="◐",
+    page_icon=":material/palette:",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -310,9 +310,9 @@ if banner_path.exists():
             # Streamlit can render raw SVG via markdown; ensure it fills container
             st.markdown(svg_text, unsafe_allow_html=True)
         else:
-            st.image(str(banner_path), use_container_width=True)
+            st.image(str(banner_path), width="stretch")
     except Exception:
-        st.image(str(banner_path), use_container_width=True)
+        st.image(str(banner_path), width="stretch")
 else:
     st.markdown(
         f"""
@@ -373,12 +373,17 @@ with right:
                 # show thumbnail
                 try:
                     thumb = Image.open(path)
-                    st.image(thumb, use_container_width=True, caption=label)
+                    st.image(thumb, width="stretch", caption=label)
                 except Exception:
                     st.caption(label)
             else:
                 st.caption(label)
-            if st.button(f"Use {label}", key=f"sample_{label}", use_container_width=True):
+            if st.button(
+                f"Use {label}",
+                key=f"sample_{label}",
+                width="stretch",
+                icon=":material/image:",
+            ):
                 try:
                     data = path.read_bytes()
                     st.session_state.image_bytes = data
@@ -396,7 +401,7 @@ if st.session_state.image_bytes is not None:
     size_kb = len(st.session_state.image_bytes) / 1024
     c1, c2 = st.columns([0.22, 0.78])
     with c1:
-        st.image(img, caption="Original", use_container_width=True)
+        st.image(img, caption="Original", width="stretch")
     with c2:
         st.markdown(
             f"""
@@ -426,7 +431,9 @@ if st.session_state.image_bytes is None:
 image_bytes = st.session_state.image_bytes
 image_hash = st.session_state.image_hash
 
-tab_ascii, tab_pixel, tab_palette = st.tabs(["◐  ASCII", "▦  PIXEL", "◎  PALETTE"])
+tab_ascii, tab_pixel, tab_palette = st.tabs(
+    [":material/code: ASCII", ":material/grid_view: Pixel", ":material/palette: Palette"]
+)
 
 # ===========================================================================
 # ASCII TAB
@@ -471,10 +478,11 @@ with tab_ascii:
             thumb_text = "\n".join(thumb_lines)
             st.code(thumb_text, language=None)
             if st.button(
-                "Select" if not is_active else "✓ Selected",
+                "Select" if not is_active else "Selected",
                 key=f"ascii_sel_{preset_name}",
-                use_container_width=True,
+                width="stretch",
                 disabled=is_active,
+                icon=":material/check:" if is_active else ":material/tune:",
             ):
                 st.session_state.ascii_preset = preset_name
                 # Sync Full Control sliders to preset
@@ -492,7 +500,7 @@ with tab_ascii:
     # Full Control expander — also when a preset is active, show its params as editable?
     # Add a radio to switch to Full Control mode
     st.markdown("---")
-    use_full = st.checkbox("Full Control — override preset params", value=False, key="ascii_full_toggle")
+    use_full = st.toggle("Full control — override preset params", value=False, key="ascii_full_toggle")
     if use_full:
         st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-bottom: 6px;">Full Control</div>', unsafe_allow_html=True)
         fc1, fc2, fc3 = st.columns(3)
@@ -500,8 +508,17 @@ with tab_ascii:
             st.session_state.ascii_cols = st.slider("Columns", 40, 300, st.session_state.ascii_cols, 10, key="ascii_cols_slider")
             st.session_state.ascii_charset = st.selectbox("Charset", list(CHARSET_MAP.keys()), index=list(CHARSET_MAP.keys()).index(st.session_state.ascii_charset), key="ascii_charset_sel")
         with fc2:
-            st.session_state.ascii_color = st.radio("Color mode", ["grayscale", "original", "bw"], index=["grayscale", "original", "bw"].index(st.session_state.ascii_color), horizontal=True, key="ascii_color_radio")
-            st.session_state.ascii_invert = st.checkbox("Invert", value=st.session_state.ascii_invert, key="ascii_invert_chk")
+            _color = st.segmented_control(
+                "Color mode",
+                ["grayscale", "original", "bw"],
+                default=st.session_state.ascii_color,
+                key="ascii_color_radio",
+            )
+            if _color is not None:
+                st.session_state.ascii_color = _color
+            st.session_state.ascii_invert = st.toggle(
+                "Invert", value=st.session_state.ascii_invert, key="ascii_invert_chk"
+            )
         with fc3:
             st.session_state.ascii_contrast = st.slider("Contrast", 0.5, 2.0, st.session_state.ascii_contrast, 0.1, key="ascii_contrast_slider")
             st.session_state.ascii_brightness = st.slider("Brightness", 0.5, 2.0, st.session_state.ascii_brightness, 0.1, key="ascii_brightness_slider")
@@ -555,7 +572,7 @@ with tab_ascii:
             data=main["text"].encode("utf-8"),
             file_name="ascii.txt",
             mime="text/plain",
-            use_container_width=True,
+            width="stretch", icon=":material/download:",
         )
     with d2:
         st.download_button(
@@ -563,7 +580,7 @@ with tab_ascii:
             data=main["html"].encode("utf-8"),
             file_name="ascii.html",
             mime="text/html",
-            use_container_width=True,
+            width="stretch", icon=":material/download:",
         )
     with d3:
         # PNG export
@@ -575,7 +592,7 @@ with tab_ascii:
             data=buf.getvalue(),
             file_name="ascii.png",
             mime="image/png",
-            use_container_width=True,
+            width="stretch", icon=":material/download:",
         )
     with st.expander("Copy text / html"):
         st.code(main["text"][:8000], language=None)
@@ -603,9 +620,15 @@ with tab_pixel:
                 f'<div class="preset-card {border_cls}"><div style="color:{TEXT1}; font-weight:700;">{preset_name}</div><div style="color:{TEXT3}; font-size: 0.78rem;">{preset["grid"]}× • {preset["colors"]} colors • dither {"on" if preset["dither"] else "off"}</div></div>',
                 unsafe_allow_html=True,
             )
-            st.image(thumb["image"], use_container_width=True)
+            st.image(thumb["image"], width="stretch")
             st.caption(f'thumb 32→{thumb["small_w"]}×{thumb["small_h"]} • css {len(thumb["css"])//1000}k chars')
-            if st.button("Select" if not is_active else "✓ Selected", key=f"pixel_sel_{preset_name}", use_container_width=True, disabled=is_active):
+            if st.button(
+                "Select" if not is_active else "Selected",
+                key=f"pixel_sel_{preset_name}",
+                width="stretch",
+                disabled=is_active,
+                icon=":material/check:" if is_active else ":material/grid_view:",
+            ):
                 st.session_state.pixel_preset = preset_name
                 st.session_state.pixel_grid = preset["grid"]
                 st.session_state.pixel_colors = preset["colors"]
@@ -616,7 +639,7 @@ with tab_pixel:
             pcols = st.columns(2)
 
     st.markdown("---")
-    use_full_pix = st.checkbox("Full Control — override preset", value=False, key="pixel_full_toggle")
+    use_full_pix = st.toggle("Full control — override preset", value=False, key="pixel_full_toggle")
     if use_full_pix:
         st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-bottom: 6px;">Full Control</div>', unsafe_allow_html=True)
         fc1, fc2, fc3 = st.columns(3)
@@ -650,7 +673,7 @@ with tab_pixel:
     sc2.metric("Export", f"{main_pix['width']} × {main_pix['height']}")
     sc3.metric("Colors", f"{main_pix['colors']}")
 
-    st.image(main_pix["image"], caption=f"Pixel — {main_pix_label}", use_container_width=True)
+    st.image(main_pix["image"], caption=f"Pixel — {main_pix_label}", width="stretch")
 
     # CSS box-shadow preview
     with st.expander("CSS box-shadow (shareable)"):
@@ -658,19 +681,19 @@ with tab_pixel:
         css_code = f".pixel-art {{ width: {main_scale}px; height: {main_scale}px; background: transparent; box-shadow: {main_pix['css']}; }}"
         st.code(css_code[:12000] + ("\n/* ... truncated ... */" if len(css_code) > 12000 else ""), language="css")
         # Download CSS
-        st.download_button("Download CSS", data=css_code.encode("utf-8"), file_name="pixel.css", mime="text/css", use_container_width=True)
+        st.download_button("Download CSS", data=css_code.encode("utf-8"), file_name="pixel.css", mime="text/css", width="stretch", icon=":material/download:")
 
     # Downloads
     d1, d2 = st.columns(2)
     with d1:
         buf = io.BytesIO()
         main_pix["image"].save(buf, format="PNG")
-        st.download_button("Download PNG", data=buf.getvalue(), file_name="pixel.png", mime="image/png", use_container_width=True)
+        st.download_button("Download PNG", data=buf.getvalue(), file_name="pixel.png", mime="image/png", width="stretch", icon=":material/download:")
     with d2:
         # Also download small quantized as PNG
         buf2 = io.BytesIO()
         main_pix["small"].save(buf2, format="PNG")
-        st.download_button("Download small PNG (grid)", data=buf2.getvalue(), file_name="pixel_small.png", mime="image/png", use_container_width=True)
+        st.download_button("Download small PNG (grid)", data=buf2.getvalue(), file_name="pixel_small.png", mime="image/png", width="stretch", icon=":material/download:")
 
 
 # ===========================================================================
@@ -685,9 +708,18 @@ with tab_palette:
     # Mode pills + n_colors slider
     mcols = st.columns([3, 1])
     with mcols[0]:
-        # Mode as radio horizontal
-        mode = st.radio("Mode", PALETTE_MODES, index=PALETTE_MODES.index(st.session_state.palette_mode), horizontal=True, format_func=lambda m: PALETTE_MODE_LABELS[m], key="palette_mode_radio")
-        st.session_state.palette_mode = mode
+        mode = st.segmented_control(
+            "Mode",
+            PALETTE_MODES,
+            default=st.session_state.palette_mode,
+            format_func=lambda m: PALETTE_MODE_LABELS[m],
+            key="palette_mode_radio",
+        )
+        # segmented_control can return None if cleared; fall back to previous
+        if mode is not None:
+            st.session_state.palette_mode = mode
+        else:
+            mode = st.session_state.palette_mode
     with mcols[1]:
         n = st.slider("Colors", 3, 8, st.session_state.palette_n, 1, key="palette_n_slider")
         st.session_state.palette_n = n
@@ -741,7 +773,7 @@ with tab_palette:
 
     # Gradient preview + WCAG badges
     st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-top: 12px;">Gradient wallpaper</div>', unsafe_allow_html=True)
-    st.image(pal["gradient"], caption="800×120 linear gradient of the palette", use_container_width=True)
+    st.image(pal["gradient"], caption="800×120 linear gradient of the palette", width="stretch")
 
     # WCAG contrast
     wcag = pal["wcag"]
@@ -778,12 +810,12 @@ with tab_palette:
     with c1:
         st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-bottom: 6px;">CSS variables</div>', unsafe_allow_html=True)
         st.code(pal["css_vars"], language="css")
-        st.download_button("Download CSS", data=pal["css_vars"].encode("utf-8"), file_name="palette.css", mime="text/css", use_container_width=True)
+        st.download_button("Download CSS", data=pal["css_vars"].encode("utf-8"), file_name="palette.css", mime="text/css", width="stretch", icon=":material/download:")
     with c2:
         st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-bottom: 6px;">Export gradient</div>', unsafe_allow_html=True)
         buf = io.BytesIO()
         pal["gradient"].save(buf, format="PNG")
-        st.download_button("Download gradient PNG", data=buf.getvalue(), file_name="gradient.png", mime="image/png", use_container_width=True)
+        st.download_button("Download gradient PNG", data=buf.getvalue(), file_name="gradient.png", mime="image/png", width="stretch", icon=":material/download:")
         # Also show tailwind snippet hint
         st.caption("CSS includes `:root --color-*` + Tailwind `colors` snippet.")
 
