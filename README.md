@@ -52,7 +52,7 @@ Its purpose is observability, not speed. For a fast local runtime, see
 
 `vocabulary-geometry-lab` will connect the observatory's
 layer-wise traces with the information-geometric ideas developed in the
-[`research`](https://github.com/divyamtewary/research) repository.
+side-projects repository itself.
 
 ---
 

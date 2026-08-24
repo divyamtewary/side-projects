@@ -119,7 +119,7 @@ pip install torch transformers safetensors accelerate
 #   Pillow     → inline chart previews
 ```
 
-> **CPU note:** The suite explicitly does **not** claim FP16 is fastest on CPU — it uses AUTO precision. On CPU, FP16 can actually be slower on chips without native fp16 ALUs (as corrected from the original `00_GEMMA3_MODEL_BREAKDOWN.ipynb`).
+> **CPU note:** The suite explicitly does **not** claim FP16 is fastest on CPU — it uses AUTO precision. On CPU, FP16 can actually be slower on chips without native fp16 ALUs (as corrected from the original research notebook).
 
 ### 5. Run
 
@@ -256,7 +256,7 @@ runs/
 - **Deterministic run ID:** `YYYYMMDDThhmmssZ_<first-8 of SHA-256 over canonical sorted-key JSON of {model_id, preset, runtime_type, timestamp}>`. Same config + same UTC second → same 8-char suffix (uniqueness suffix `_1`, `_2` only if folder already exists).
 - **Atomic writes:** every JSON/MD file is written to a temp file then `replace()`'d, so interrupted runs don't leave half-written JSON.
 - **No secrets in artefacts:** the allowlist guarantees no absolute paths or tokens beyond the sanitised `model_id` are persisted (verified by `git grep -E "hf_|token|api_key"` prior to push).
-- **Synthetic only:** all fixtures are synthetic neutral passages labelled as synthetic (the original `00_GEMMA3_MODEL_BREAKDOWN.ipynb`'s aviation `SIGNAL_BLOCK` / `NOISE_BLOCKS` were intentionally removed per the brief's contamination note).
+- **Synthetic only:** all fixtures are synthetic neutral passages labelled as synthetic (aviation domain fixtures were intentionally removed — contamination note).
 
 ---
 
@@ -275,8 +275,6 @@ slm-evaluation-suite/
   app.py                     # ← Tkinter app (tab logic, threading, exports)
   requirements.txt
   README.md                  # this file
-  00_GEMMA3_MODEL_BREAKDOWN.ipynb   # original research seed (kept for reference)
-  PROJECT_BRIEF.md           # original brief (scope was respun to Tkinter here)
   docs/img/
     banner.svg, 01_setup.png … 04_history.png, chart_*.png
   src/
@@ -342,7 +340,7 @@ print("wrote", run_dir / "overview.md")
 
 ## Roadmap (what was intentionally left out)
 
-Per the original `PROJECT_BRIEF.md` the headless `v0.1.0` was already a descope; this Tkinter edition re-introduces the UI but still defers:
+Per the original headless `v0.1.0` playbook the build was already a descope; this Tkinter edition re-introduces the UI but still defers:
 
 - H003 (precision), H004 (temperature), B001 (signal-to-noise RAG) — framework is ready, only `core/experiments/*.py` needed.
 - Real HF revision pinning / private repo handling (currently any repo id; revision is implicit via Hub cache).
@@ -358,7 +356,7 @@ If you want one of these next, the cut points are exactly `src/core/experiments/
 
 - [`neural-observatory`](../neural-observatory/) — what happens *inside* a small transformer while it generates (attention entropy, logit lens, MLP sparsity, 3-D stack).
 - [`side-projects` root README](../README.md) — the map of all projects: measure → observe → experiment.
-- `00_GEMMA3_MODEL_BREAKDOWN.ipynb` — the notebook this suite generalises (with the FP16-always-fastest, no-warm-up, TTFT-conflated-with-prefill and aviation-fixture errors corrected).
+- Original research notebook — the suite generalises the streaming, timing and context-scaling ideas (with FP16-always-fastest, no-warm-up and TTFT-conflated-with-prefill errors corrected).
 
 ---
 
