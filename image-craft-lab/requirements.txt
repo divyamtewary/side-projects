@@ -1,0 +1,7 @@
+# image-craft-lab — hard deps only
+Pillow>=10.0
+numpy>=1.26
+streamlit>=1.36
+
+# optional — KMeans palette path (MEDIANCUT fallback if missing)
+scikit-learn>=1.3
