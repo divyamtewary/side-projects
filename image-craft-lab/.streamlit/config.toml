@@ -1,0 +1,10 @@
+[server]
+# Workaround for watchdog Thread handle bug on Python 3.13 + watchdog < 6
+# https://github.com/gorakhargosh/watchdog/issues/1049
+# poll is pure-Python and avoids the native observer that crashes on Win + Py3.13.
+# user can override with: streamlit run app.py --server.fileWatcherType watchdog  (if watchdog>=6)
+fileWatcherType = "poll"
+runOnSave = false
+
+[browser]
+gatherUsageStats = false

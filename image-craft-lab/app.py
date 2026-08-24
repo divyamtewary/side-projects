@@ -301,10 +301,18 @@ if "pixel_scale" not in st.session_state:
 # ---------------------------------------------------------------------------
 # Header
 # ---------------------------------------------------------------------------
-# Banner — show svg if exists
+# Banner — show svg if exists (robust to Pillow / SVG)
 banner_path = Path(__file__).parent / "docs" / "img" / "banner.svg"
 if banner_path.exists():
-    st.image(str(banner_path), use_column_width=True)
+    try:
+        if banner_path.suffix.lower() == ".svg":
+            svg_text = banner_path.read_text(encoding="utf-8")
+            # Streamlit can render raw SVG via markdown; ensure it fills container
+            st.markdown(svg_text, unsafe_allow_html=True)
+        else:
+            st.image(str(banner_path), use_container_width=True)
+    except Exception:
+        st.image(str(banner_path), use_container_width=True)
 else:
     st.markdown(
         f"""
@@ -365,7 +373,7 @@ with right:
                 # show thumbnail
                 try:
                     thumb = Image.open(path)
-                    st.image(thumb, use_column_width=True, caption=label)
+                    st.image(thumb, use_container_width=True, caption=label)
                 except Exception:
                     st.caption(label)
             else:
@@ -388,7 +396,7 @@ if st.session_state.image_bytes is not None:
     size_kb = len(st.session_state.image_bytes) / 1024
     c1, c2 = st.columns([0.22, 0.78])
     with c1:
-        st.image(img, caption="Original", use_column_width=True)
+        st.image(img, caption="Original", use_container_width=True)
     with c2:
         st.markdown(
             f"""
@@ -595,7 +603,7 @@ with tab_pixel:
                 f'<div class="preset-card {border_cls}"><div style="color:{TEXT1}; font-weight:700;">{preset_name}</div><div style="color:{TEXT3}; font-size: 0.78rem;">{preset["grid"]}× • {preset["colors"]} colors • dither {"on" if preset["dither"] else "off"}</div></div>',
                 unsafe_allow_html=True,
             )
-            st.image(thumb["image"], use_column_width=True)
+            st.image(thumb["image"], use_container_width=True)
             st.caption(f'thumb 32→{thumb["small_w"]}×{thumb["small_h"]} • css {len(thumb["css"])//1000}k chars')
             if st.button("Select" if not is_active else "✓ Selected", key=f"pixel_sel_{preset_name}", use_container_width=True, disabled=is_active):
                 st.session_state.pixel_preset = preset_name
@@ -642,7 +650,7 @@ with tab_pixel:
     sc2.metric("Export", f"{main_pix['width']} × {main_pix['height']}")
     sc3.metric("Colors", f"{main_pix['colors']}")
 
-    st.image(main_pix["image"], caption=f"Pixel — {main_pix_label}", use_column_width=True)
+    st.image(main_pix["image"], caption=f"Pixel — {main_pix_label}", use_container_width=True)
 
     # CSS box-shadow preview
     with st.expander("CSS box-shadow (shareable)"):
@@ -733,7 +741,7 @@ with tab_palette:
 
     # Gradient preview + WCAG badges
     st.markdown(f'<div style="color:{TEXT1}; font-weight:700; margin-top: 12px;">Gradient wallpaper</div>', unsafe_allow_html=True)
-    st.image(pal["gradient"], caption="800×120 linear gradient of the palette", use_column_width=True)
+    st.image(pal["gradient"], caption="800×120 linear gradient of the palette", use_container_width=True)
 
     # WCAG contrast
     wcag = pal["wcag"]

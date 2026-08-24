@@ -6,8 +6,8 @@ __pycache__/
 venv/
 .env
 
-# Streamlit
-.streamlit/
+# Streamlit — keep config.toml (fileWatcherType=poll fixes Python 3.13), ignore secrets
+.streamlit/secrets.toml
 
 # OS
 .DS_Store

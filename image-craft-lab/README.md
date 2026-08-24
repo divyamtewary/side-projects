@@ -152,6 +152,7 @@ Switching `n_colors` or `mode` is instant (cached per `(hash, n, mode)`).
 ```
 image-craft-lab/
 ├── app.py                # single Streamlit app (~500 lines) — 3 tabs, live thumbnails, exports
+├── .streamlit/config.toml# fileWatcherType=poll (fixes watchdog ThreadHandle on Python 3.13)
 ├── src/
 │   ├── __init__.py
 │   ├── ascii.py          # image_to_ascii
@@ -170,9 +171,8 @@ image-craft-lab/
 │       ├── 02-pixel.png
 │       └── 03-palette.png
 ├── tests/test_craft.py   # 18 tests, pytest -q green
-├── requirements.txt
-├── LICENSE (MIT)
-└── PROJECT_BRIEF.md
+├── requirements.txt      # includes watchdog>=6.0.0 for Python 3.13
+└── LICENSE (MIT)
 ```
 
 ---
@@ -203,6 +203,8 @@ No UI in tests — generated images only.
 | ASCII looks stretched | That's `CHAR_ASPECT=0.55` correcting tall monospace cells. Try `cols=80` instead of `180` |
 | Pixel CSS huge | `128×128` → ~16k shadows (~400 KB). Use `32` or `64` grid for shareables |
 | `streamlit: command not found` | Activate venv: `.\.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (macOS/Linux) |
+| `TypeError: ... use_column_width` | Fixed in `app.py:307` — replaced `use_column_width` (removed in Streamlit 1.62) with `use_container_width`. `git pull` to get the patch. |
+| `Failed to schedule watch observer` + `TypeError: 'handle' must be a _ThreadHandle` | `watchdog<6` bug on Python 3.13 (Windows). Fixed two ways: (1) `.streamlit/config.toml` sets `fileWatcherType=\"poll\"` (pure-Python, no native observer) — already in repo, restart `streamlit run app.py`; (2) upgrade: `pip install \"watchdog>=6.0.0\"` (recommended). Alternative one-off: `streamlit run app.py --server.fileWatcherType poll`. |
 
 ---
 
