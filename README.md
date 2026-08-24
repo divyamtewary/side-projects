@@ -22,6 +22,7 @@ the smallest useful instrument, and documents what the evidence does and does no
 |---|---|---|
 | [`neural-observatory`](neural-observatory/) | Available | What is happening inside a small transformer while it generates? |
 | [`slm-evaluation-suite`](slm-evaluation-suite/) | **Available** | **How can local model performance be measured without pretending one number explains quality?** — Tkinter self-hosted evaluator (local dir or HF Hub, live progress, 5 charts, PDF/DOCX) |
+| [`image-craft-lab`](image-craft-lab/) | **Available** | **Play. One photo, three transformations.** The most shareable lab — upload one photo, get ASCII, Pixel and Palette studios with live thumbnails on *that* photo + Full Control. Pure Pillow, no model, no API. |
 | `vocabulary-geometry-lab` | Planned | How does a model move through output-vocabulary space before a prediction stabilises? |
 
 ---
@@ -47,6 +48,16 @@ Its purpose is observability, not speed. For a fast local runtime, see
 ## SLM Evaluation Suite
 
 [`slm-evaluation-suite`](slm-evaluation-suite/) is a **Tkinter desktop app** for measuring small language models on your own machine. Pick a **local directory** or a **Hugging Face model** (after `huggingface-cli login`), watch the 6-section pipeline (environment → model inspection → baseline → H1 context scaling → H2 decode position → grounding probe) run with live progress bars, then browse the **evidence cards**, 5 deterministic charts and beginner/expert summaries. Every run is saved as `runs/<model>__<date>` and exportable to **PDF/DOCX**. See [`slm-evaluation-suite/README.md`](slm-evaluation-suite/README.md) for screenshots and a step-by-step usage guide.
+
+## Image Craft Lab
+
+[`image-craft-lab`](image-craft-lab/) is a **Streamlit lab for one photo, three transformations**. Upload one photo — every preset shows a **live thumbnail of *that* photo** — then switch between:
+
+- **ASCII** — `6` presets + Full Control (`charset`/`cols`/`color`/`contrast`/`brightness`/`invert`), `CHAR_ASPECT=0.55` luminance → `charset[int(p/255*(n-1))]` with `BILINEAR` color sampling; exports `.txt`/`.html`/`.png`.
+- **PIXEL** — `4` presets + Full Control (`grid`/`colors`/`dither`/`scale`), `NEAREST` downscale → `MEDIANCUT` quantize → `NEAREST` upscale; exports `PNG` + `CSS` `box-shadow` (single-`div` shareable sprite).
+- **PALETTE** — `4` modes (`vibrant`/`muted`/`pastel`/`deep` via `HSV`) + `n_colors` `3–8`, `KMeans` or `MEDIANCUT` fallback, sorted dominant, `800×120` gradient + WCAG contrast badges; exports `CSS` (`:root` + Tailwind) + gradient `PNG`.
+
+No model, no API, no GPU — `Pillow` is the only hard dep (`numpy` + optional `scikit-learn`). Beginners get results in 5 seconds, intermediates get full control. See [`image-craft-lab/README.md`](image-craft-lab/README.md) for screenshots and a step-by-step usage guide.
 
 ## What comes next
 
