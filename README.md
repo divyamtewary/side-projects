@@ -21,7 +21,7 @@ the smallest useful instrument, and documents what the evidence does and does no
 | Project | Status | Question or role |
 |---|---|---|
 | [`neural-observatory`](neural-observatory/) | Available | What is happening inside a small transformer while it generates? |
-| [`slm-evaluation-suite`](slm-evaluation-suite/) | Next | How can local model performance be measured without pretending one number explains quality? |
+| [`slm-evaluation-suite`](slm-evaluation-suite/) | **Available** | **How can local model performance be measured without pretending one number explains quality?** — Tkinter self-hosted evaluator (local dir or HF Hub, live progress, 5 charts, PDF/DOCX) |
 | `vocabulary-geometry-lab` | Planned | How does a model move through output-vocabulary space before a prediction stabilises? |
 
 ---
@@ -44,13 +44,13 @@ Its purpose is observability, not speed. For a fast local runtime, see
 
 ---
 
+## SLM Evaluation Suite
+
+[`slm-evaluation-suite`](slm-evaluation-suite/) is a **Tkinter desktop app** for measuring small language models on your own machine. Pick a **local directory** or a **Hugging Face model** (after `huggingface-cli login`), watch the 6-section pipeline (environment → model inspection → baseline → H1 context scaling → H2 decode position → grounding probe) run with live progress bars, then browse the **evidence cards**, 5 deterministic charts and beginner/expert summaries. Every run is saved as `runs/<model>__<date>` and exportable to **PDF/DOCX**. See [`slm-evaluation-suite/README.md`](slm-evaluation-suite/README.md) for screenshots and a step-by-step usage guide.
+
 ## What comes next
 
-`slm-evaluation-suite` will turn the measurement work into a reproducible, headless
-evaluation package with explicit separation between measured, derived, and interpreted
-results.
-
-The next research artifact, `vocabulary-geometry-lab`, will connect the observatory's
+`vocabulary-geometry-lab` will connect the observatory's
 layer-wise traces with the information-geometric ideas developed in the
 [`research`](https://github.com/divyamtewary/research) repository.
 

@@ -1,0 +1,15 @@
+# runs are local artefacts — keep structure but not contents (except .gitkeep)
+runs/*
+!runs/.gitkeep
+# keep docs/img but ignore temp
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+.DS_Store
+Thumbs.db
+*.log

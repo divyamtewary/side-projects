@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-label="SLM Evaluation Suite">
+  <title>SLM Evaluation Suite</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a0a0f"/><stop offset="55%" stop-color="#1a102e"/><stop offset="100%" stop-color="#0e1e2a"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.45" r="0.6"><stop offset="0%" stop-color="#a78bfa" stop-opacity="0.28"/><stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#a78bfa" stroke-opacity="0.05"/></pattern>
+    <clipPath id="c"><rect width="1200" height="340" rx="18"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="1200" height="340" fill="url(#bg)"/>
+    <rect width="1200" height="340" fill="url(#grid)"/>
+    <ellipse cx="880" cy="118" rx="420" ry="220" fill="url(#glow)"/>
+    <rect width="6" height="340" fill="url(#acc)"/>
+    <text x="48" y="82" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="38" font-weight="700" fill="#f5f7fb">slm evaluation suite</text>
+    <text x="48" y="112" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" fill="#a1a1aa">Measure local model performance — without pretending one number explains quality.</text>
+    <g transform="translate(48,138)" font-family="ui-monospace, Menlo, Consolas, monospace">
+      <rect x="0" y="0" width="148" height="34" rx="17" fill="#1e1633" stroke="#a78bfa" stroke-opacity="0.7"/><text x="74" y="22" text-anchor="middle" font-size="11" fill="#ddd6fe">TKINTER</text>
+      <rect x="160" y="0" width="148" height="34" rx="17" fill="#0f2a2e" stroke="#22d3ee" stroke-opacity="0.7"/><text x="234" y="22" text-anchor="middle" font-size="11" fill="#a5f3fc">LOCAL ONLY</text>
+      <rect x="320" y="0" width="170" height="34" rx="17" fill="#0f2a1a" stroke="#34d399" stroke-opacity="0.7"/><text x="405" y="22" text-anchor="middle" font-size="11" fill="#a7f3d0">EVIDENCE CARDS</text>
+    </g>
+    <g transform="translate(48,200)">
+      <rect width="3" height="56" fill="url(#acc)"/>
+      <text x="16" y="16" font-family="system-ui, Segoe UI, sans-serif" font-size="10" fill="#71717a" letter-spacing="1.6">TRUTH LEVELS</text>
+      <text x="16" y="36" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#e6e8ee">MEASURED  ·  DERIVED  ·  INTERPRETED (descriptive only)</text>
+      <text x="16" y="54" font-family="system-ui, Segoe UI, sans-serif" font-size="11" fill="#a1a1aa">TTFT is streaming-approx • Fixed ordering • AUTO precision • No single quality score</text>
+    </g>
+    <g transform="translate(760,38)" font-family="ui-monospace, Menlo, Consolas, monospace">
+      <rect x="18" y="110" width="100" height="44" rx="10" fill="#1e1633" stroke="#a78bfa" stroke-opacity="0.6"/>
+      <rect x="148" y="68" width="100" height="44" rx="10" fill="#0f2a2e" stroke="#22d3ee" stroke-opacity="0.6"/>
+      <rect x="278" y="24" width="100" height="44" rx="10" fill="#0f2a1a" stroke="#34d399" stroke-opacity="0.6"/>
+      <line x1="118" y1="132" x2="148" y2="90" stroke="url(#acc)" stroke-width="2"/>
+      <line x1="248" y1="90" x2="278" y2="46" stroke="url(#acc)" stroke-width="2"/>
+      <text x="68" y="137" text-anchor="middle" font-size="10" fill="#ddd6fe">speed</text>
+      <text x="198" y="95" text-anchor="middle" font-size="10" fill="#a5f3fc">scaling</text>
+      <text x="328" y="51" text-anchor="middle" font-size="10" fill="#a7f3d0">grounding</text>
+      <circle cx="68" cy="188" r="6" fill="#a78bfa"/><circle cx="198" cy="188" r="6" fill="#22d3ee"/><circle cx="328" cy="188" r="6" fill="#34d399"/>
+      <line x1="68" y1="188" x2="328" y2="188" stroke="#2a2f3a" stroke-width="1.5" stroke-dasharray="4 6"/>
+      <text x="48" y="214" font-family="system-ui, Segoe UI, sans-serif" font-size="9" fill="#71717a" letter-spacing="1.2">6 SECTIONS  •  LIVE PROGRESS  •  PDF / DOCX</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+# slm-evaluation-suite — Tkinter self-hosted
+# Core (required)
+numpy>=1.26
+matplotlib>=3.8
+psutil>=5.9
+pydantic>=2.0
+huggingface_hub>=0.24
+Pillow>=10.0
+
+# Optional: real local/HF model loading (CPU)
+# Uncomment if you want to run actual weights locally:
+# torch>=2.2           # large download — only if you run real models
+# transformers>=4.50
+# safetensors>=0.4
+# accelerate>=0.30
+
+# Export (optional but recommended)
+reportlab>=4.0
+python-docx>=1.1
+
+# Dev / lint
+ruff>=0.8; python_version >= "3.10"
+
+# Note: FakeRuntime works with ZERO optional deps — first run can be demo without torch.
