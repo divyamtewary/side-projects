@@ -1,8 +1,0 @@
-# image-craft-lab — hard deps only
-Pillow>=10.0
-numpy>=1.26
-streamlit>=1.36
-watchdog>=6.0.0  # fixes Python 3.13 ThreadHandle bug with file watcher; if you see "Failed to schedule watch observer" update watchdog or use: streamlit run app.py --server.fileWatcherType poll
-
-# optional — KMeans palette path (MEDIANCUT fallback if missing)
-scikit-learn>=1.3

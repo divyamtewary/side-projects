@@ -23,3 +23,7 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Local-only — image-craft-lab temporarily hidden from GitHub for rework (kept locally)
+image-craft-lab/
+image-craft-lab.local-backup/
